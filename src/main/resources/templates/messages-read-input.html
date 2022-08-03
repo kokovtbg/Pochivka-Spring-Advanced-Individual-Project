@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Съобщение - Входящо</title>
+    <link rel="stylesheet" href="/css/messages_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv">
+    <h1>Съобщение</h1>
+    <div class="leftSection" th:include="fragments/messages">
+    </div>
+    <input id="id" th:value="${id}" type="hidden">
+    <div class="rightSection" id="messageDiv">
+        <h3>От peshopeshev(Pesho Peshev) - 15/07/2022-15:35</h3>
+        <p>Това е пробното съобщение изпратено от мен
+            So, a user will enter an integer value (I'm checking the validation using javascript) in the input field. And on clicking the Fill Details link, corresponding number of input fields will appear for him to enter. I want to achieve this using javascript.
+
+            I'm not a pro in javascript. I was thinking how can I retrieve the integer filled in by the user in input field through the link and displaying corresponding number of input fields.
+        </p>
+        <div class="divButton">
+            <a href="#"><h3>Изтрий</h3></a>
+        </div>
+    </div>
+</div>
+<script src="/js/messages-read.js"></script>
+</body>
+</html>

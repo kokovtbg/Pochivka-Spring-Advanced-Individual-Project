@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Съобщения - Изходящи</title>
+    <link rel="stylesheet" href="/css/messages_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv">
+    <h1>Изходящи Съобщения</h1>
+    <div class="leftSection" th:include="fragments/messages">
+    </div>
+    <div class="rightSection">
+        <div class="linksMessages">
+            <table>
+                <thead>
+                <tr>
+                    <th>Получател</th>
+                    <th>Съобщение</th>
+                    <th>Дата</th>
+                </tr>
+                </thead>
+                <tbody id="messages-output">
+                <tr>
+                    <td><a href="#"><b><i>peshopeshev</i></b></a></td>
+                    <td><a href="#">"Част от съобщение...</a></td>
+                    <td><a href="#"><b><i>15/07/2022-15:35</i></b></a></td>
+                </tr>
+                <tr>
+                    <td><a href="#"><b><i>maraotvarachkata1234</i></b></a></td>
+                    <td><a href="#">"Част от съобщение......................"</a></td>
+                    <td><a href="#"><b><i>15/07/2022-16:45</i></b></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/js/messages-output.js"></script>
+</body>
+</html>

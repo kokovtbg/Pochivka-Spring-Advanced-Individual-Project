@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Почивка</title>
+    <link rel="stylesheet" href="/css/home_style.css">
+    <script src="https://kit.fontawesome.com/a4f8f099d0.js" crossorigin="anonymous"></script>
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<aside class="asideLeft">
+    <form th:action="@{/search}"
+          th:method="get"
+          th:object="${hotelDTO}">
+        <label class="labelAsideFirst" for="nameHotel">Име на хотел</label>
+        <input class="inputAside"
+               id="nameHotel"
+               name="nameHotel"
+               placeholder="име на хотел"
+               th:field="*{name}">
+        <hr class="hrAside">
+        <label class="labelAsideFirst" style="margin-top: 15px;">Дестинация</label>
+        <select class="selectAside" th:field="*{townName}">
+            <option selected th:value="noTown" th:text="'Избери град'"></option>
+            <option th:each="town : ${T(bg.softuni.pochivka.model.enums.TownEnum).values()}"
+                    th:value="${town}" th:text="${town.value}"></option>
+        </select>
+        <hr class="hrAside">
+        <div class="asideTitle">Хранене</div>
+        <input type="checkbox" class="btnAside" style="margin-left: 25px;"
+                name="only_beb"
+                id="only_bed"
+                th:field="*{accommodation}"
+                th:value="ONLY_BED" title="OB - само нощувка(Only Bed)">
+        <label class="labelBtn" for="only_bed" title="OB - само нощувка(Only Bed)">OL</label>
+        <input type="checkbox" class="btnAside"
+                name="bed_breakfast"
+                id="bed_breakfast"
+                th:field="*{accommodation}"
+                th:value="BED_BREAKFAST" title="BB - нощувка и закуска(Bed and Breakfast)">
+        <label class="labelBtn" for="bed_breakfast" title="BB - нощувка и закуска(Bed and Breakfast)">BB</label>
+        <input type="checkbox" class="btnAside"
+                name="half_board"
+                id="half_board"
+                th:field="*{accommodation}"
+                th:value="HALF_BOARD" title="HB - нощувка със закуска и вечеря/полупансион(Half Board)">
+        <label class="labelBtn" for="half_board" title="HB - нощувка със закуска и вечеря/полупансион(Half Board)">HB</label>
+        <input type="checkbox" class="btnAside"
+                name="full_board"
+                id="full_board"
+                th:field="*{accommodation}"
+                th:value="FULL_BOARD" title="FB - нощувка със закуска, обяд и вечеря/пълен пансион(Full Board)">
+        <label class="labelBtn" for="full_board" title="FB - нощувка със закуска, обяд и вечеря/пълен пансион(Full Board)">FB</label>
+        <input type="checkbox" class="btnAside"
+                name="all_inclusive"
+                id="all_inclusive"
+                th:field="*{accommodation}"
+                th:value="ALL_INCLUSIVE" title="AI - ол инклузив(All Inclusive)">
+        <label class="labelBtn" for="all_inclusive" title="AI - ол инклузив(All Inclusive)">AI</label>
+        <hr class="hrAside">
+        <div class="asideTitle">Звезди</div>
+        <input type="checkbox" class="btnAside" style="margin-left: 25px;"
+               th:field="*{category}"
+               th:value="ONE_STAR"><i class="fa-solid fa-star">1</i>
+        <input type="checkbox" class="btnAside"
+               th:field="*{category}"
+               th:value="TWO_STAR"><i class="fa-solid fa-star">2</i>
+        <input type="checkbox" class="btnAside"
+               th:field="*{category}"
+               th:value="THREE_STAR"><i class="fa-solid fa-star">3</i>
+        <input type="checkbox" class="btnAside"
+               th:field="*{category}"
+               th:value="FOUR_STAR"><i class="fa-solid fa-star">4</i>
+        <input type="checkbox" class="btnAside"
+               th:field="*{category}"
+               th:value="FIVE_STAR"><i class="fa-solid fa-star">5</i>
+        <hr class="hrAside">
+        <div class="asideTitle">Удобства</div>
+        <div class="inputAsideCheckbox"
+             th:each="option : ${T(bg.softuni.pochivka.model.enums.ComfortEnum).values()}">
+            <input
+                type="checkbox"
+                th:id="${option.toString()}"
+                th:field="*{comfort}"
+                name="comfort"
+                th:value="${option}">
+            <label th:for="${option.toString()}"
+                   th:text="${option.value}">Comfort</label>
+        </div>
+        <hr class="hrAside">
+        <div class="asideTitle">Сортиране</div>
+        <div class="divOptionAside">
+            <select class="selectAside" th:field="*{sort}">
+                <option selected th:value="noSort">Без сортиране</option>
+                <option th:value="price">По Цена</option>
+                <option th:value="townName">По Дестинация</option>
+            </select>
+        </div>
+        <hr class="hrAside">
+        <div class="divButton">
+            <button type="submit" class="buttonAside">Търси</button>
+        </div>
+    </form>
+</aside>
+<div class="sectionHotel">
+    <div th:each="h : ${hotelList}" class="hotel">
+        <div class="imgHotel">
+            <a th:href="@{/hotel-detail/{id}(id=${h.id})}">
+                <img th:src="${h.images[0]}">
+            </a>
+        </div>
+        <div class="infoHotel">
+            <div class="leftSide">
+                <div class="headerHotel">
+                    <div class="titleHotel">
+                        <a th:href="@{/hotel-detail/{id}(id=${h.id})}">
+                            <h2 th:if="${#strings.length(h.name + ', ' + h.town.name.getValue()) >= 20}"
+                                th:text="${#strings.substring(h.name + ', ' + h.town.name.getValue(), 0, 20)} + '...'">Хотел Престиж Делуксаааааааа...
+                            </h2>
+                            <h2 th:if="${#strings.length(h.name + ', ' + h.town.name.getValue()) < 20}"
+                                th:text="${h.name} + ', ' + ${h.town.name.getValue()}">
+                            </h2>
+                        </a>
+                    </div>
+                    <div th:if="${h.category != null and h.category.toString() == 'ONE_STAR'}" class="categoryHotel">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div th:if="${h.category != null and h.category.toString() == 'TWO_STAR'}" class="categoryHotel">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div th:if="${h.category != null and h.category.toString() == 'THREE_STAR'}" class="categoryHotel">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div th:if="${h.category != null and h.category.toString() == 'FOUR_STAR'}" class="categoryHotel">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div th:if="${h.category != null and h.category.toString() == 'FIVE_STAR'}" class="categoryHotel">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <div class="descriptionHotel">
+                    <p th:if="${#strings.length(h.information) >= 270}"
+                       th:text="${#strings.substring(h.information, 0, 270)} + '...'">
+                    </p>
+                    <p th:if="${#strings.length(h.information) < 270}"
+                       th:text="${h.information}">
+                    </p>
+                </div>
+            </div>
+            <div class="rightSide">
+                <h2 th:text="${h.lowestPrice}"></h2><i class="fa-solid fa-sack-dollar"></i>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

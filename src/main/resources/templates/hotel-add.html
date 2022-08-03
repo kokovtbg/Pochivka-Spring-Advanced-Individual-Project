@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Хотел - Добавяне</title>
+    <link rel="stylesheet" href="/css/hotel-add_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<form th:action="@{/hotel-add}"
+      th:method="post"
+      th:object="${hotelAdd}">
+    <section class="leftSection sectionInline">
+        <div class="mainDivLeft">
+            <table class="tablePadding">
+                <tr>
+                    <th class="bg-danger" colspan="3" th:if="${wrongPrice == 1}"
+                        th:text="'Цените трябва да са валидни и трябва да има поне един вид стая'"></th>
+                </tr>
+                <tr>
+                    <th>ТИП СТАЯ</th>
+                    <th>СЕЗОН</th>
+                    <th>ЦЕНА</th>
+                </tr>
+                <tr>
+                    <td>ЕДИНИЧНА</td>
+                    <td>СИЛЕН ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[0].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЕДИНИЧНА</td>
+                    <td>СИЛЕН ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[1].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЕДИНИЧНА</td>
+                    <td>СЛАБ ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[2].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЕДИНИЧНА</td>
+                    <td>СЛАБ ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[3].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЕДИНИЧНА</td>
+                    <td>ДРУГ</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[4].price}"></td>
+                </tr>
+                <tr>
+                    <td>ДВОЙНА</td>
+                    <td>СИЛЕН ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[5].price}"></td>
+                </tr>
+                <tr>
+                    <td>ДВОЙНА</td>
+                    <td>СИЛЕН ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[6].price}"></td>
+                </tr>
+                <tr>
+                    <td>ДВОЙНА</td>
+                    <td>СЛАБ ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[7].price}"></td>
+                </tr>
+                <tr>
+                    <td>ДВОЙНА</td>
+                    <td>СЛАБ ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[8].price}"></td>
+                </tr>
+                <tr>
+                    <td>ДВОЙНА</td>
+                    <td>ДРУГ</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[9].price}"></td>
+                </tr>
+                <tr>
+                    <td>ТРОЙНА</td>
+                    <td>СИЛЕН ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[10].price}"></td>
+                </tr>
+                <tr>
+                    <td>ТРОЙНА</td>
+                    <td>СИЛЕН ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[11].price}"></td>
+                </tr>
+                <tr>
+                    <td>ТРОЙНА</td>
+                    <td>СЛАБ ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[12].price}"></td>
+                </tr>
+                <tr>
+                    <td>ТРОЙНА</td>
+                    <td>СЛАБ ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[13].price}"></td>
+                </tr>
+                <tr>
+                    <td>ТРОЙНА</td>
+                    <td>ДРУГ</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[14].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЧЕТВОРНА</td>
+                    <td>СИЛЕН ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[15].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЧЕТВОРНА</td>
+                    <td>СИЛЕН ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[16].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЧЕТВОРНА</td>
+                    <td>СЛАБ ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[17].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЧЕТВОРНА</td>
+                    <td>СЛАБ ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[18].price}"></td>
+                </tr>
+                <tr>
+                    <td>ЧЕТВОРНА</td>
+                    <td>ДРУГ</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[19].price}"></td>
+                </tr>
+                <tr>
+                    <td>АПАРТАМЕНТ</td>
+                    <td>СИЛЕН ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[20].price}"></td>
+                </tr>
+                <tr>
+                    <td>АПАРТАМЕНТ</td>
+                    <td>СИЛЕН ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[21].price}"></td>
+                </tr>
+                <tr>
+                    <td>АПАРТАМЕНТ</td>
+                    <td>СЛАБ ЛЕТЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[22].price}"></td>
+                </tr>
+                <tr>
+                    <td>АПАРТАМЕНТ</td>
+                    <td>СЛАБ ЗИМЕН</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[23].price}"></td>
+                </tr>
+                <tr>
+                    <td>АПАРТАМЕНТ</td>
+                    <td>ДРУГ</td>
+                    <td><input type="number" class="inputTable" th:field="${hotelAdd.rooms[24].price}"></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <section class="rightSection sectionInline">
+        <div class="mainDivRight">
+            <label for="name" class="labelForm labelUsual">ИМЕ ХОТЕЛ</label>
+            <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    th:field="*{name}"
+                    class="inputForm"
+                    placeholder="Име на хотел*">
+            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="bg-danger"></small>
+            <label for="website" class="labelForm labelUsual">УЕБСАЙТ</label>
+            <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    th:field="*{website}"
+                    class="inputForm"
+                    placeholder="Уебсайт">
+            <small th:if="${#fields.hasErrors('website')}" th:errors="*{website}" class="bg-danger"></small>
+            <label for="information" class="labelForm labelUsual">ОПИСАНИЕ</label>
+            <textarea
+                    id="information"
+                    name="information"
+                    th:field="*{information}"
+                    class="inputForm textArea"
+                    placeholder="Описание*"></textarea>
+            <small th:if="${#fields.hasErrors('information')}" th:errors="*{information}" class="bg-danger"></small>
+            <label for="category" class="labelForm labelUsual">КАТЕГОРИЯ</label>
+            <select
+                    id="category"
+                    name="category"
+                    th:field="*{category}"
+                    class="inputForm">
+                <option selected th:value="noCategory">Без категория</option>
+                <option th:each="category : ${T(bg.softuni.pochivka.model.enums.HotelCategory).values()}"
+                        th:value="${category}" th:text="${category.value}"></option>
+            </select>
+            <label for="accommodation" class="labelForm labelUsual">НАСТАНЯВАНЕ</label>
+            <select
+                    id="accommodation"
+                    name="accommodation"
+                    th:field="*{accommodation}"
+                    class="inputForm">
+                <option selected th:value="noAccommodation">Настаняване*</option>
+                <option th:each="acc : ${T(bg.softuni.pochivka.model.enums.Accommodation).values()}"
+                        th:value="${acc}" th:text="${acc.value}"></option>
+            </select>
+            <small th:if="${#fields.hasErrors('accommodation')}" th:errors="*{accommodation}" class="bg-danger"></small>
+            <label for="images" class="labelForm labelUsual">СНИМКИ</label>
+            <textarea
+                    id="images"
+                    name="images"
+                    th:field="*{images}"
+                    class="inputForm textArea"
+                    placeholder="Линкове със снимки всеки на нов ред*"></textarea>
+            <small th:if="${#fields.hasErrors('images')}" th:errors="*{images}" class="bg-danger"></small>
+            <label class="labelForm labelUsual">УДОБСТВА</label>
+            <div
+                 th:each="option : ${T(bg.softuni.pochivka.model.enums.ComfortEnum).values()}">
+                <input
+                        type="checkbox"
+                        th:id="${option.toString()}"
+                        th:field="*{comforts}"
+                        name="comforts"
+                        th:value="${option}">
+                <label th:for="${option.toString()}"
+                       th:text="${option.value}">Comfort</label>
+            </div>
+            <label for="town" class="labelForm labelUsual">ГРАД</label>
+            <select
+                    id="town"
+                    name="town"
+                    th:field="*{town}"
+                    class="inputForm">
+                <option selected th:value="noTown">Град*</option>
+                <option th:each="town : ${T(bg.softuni.pochivka.model.enums.TownEnum).values()}"
+                        th:value="${town}" th:text="${town.value}"></option>
+            </select>
+            <small th:if="${#fields.hasErrors('town')}" th:errors="*{town}" class="bg-danger"></small>
+
+            <input type="submit" value="ДОБАВЯНЕ" class="btnForm">
+
+        </div>
+    </section>
+</form>
+</body>
+</html>

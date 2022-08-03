@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Администратор - Съобщения</title>
+    <link rel="stylesheet" href="/css/messages_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv">
+    <div th:each="m : ${messages}">
+        <a th:href="@{/pages/admins/read/{id}(id=${m.id})}"
+           th:text="${#strings.substring(m.content, 0, 60)} + '...'">Това е пробно съобщение</a>
+        <div>
+            02/08/2022-16:02:30
+        </div>
+        <hr>
+    </div>
+    <div><a th:href="@{/pages/admins/delete}">Изтрий всички</a></div>
+
+</div>
+</body>
+</html>

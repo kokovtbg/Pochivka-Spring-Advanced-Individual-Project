@@ -1,0 +1,46 @@
+/*Navigation*/
+nav {
+    padding: 5px 0;
+    text-align: center;
+    background-color: white;
+    color: rgb(214,116,114);
+    font-size: 20px;
+}
+nav ul li {
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(214,116,114);
+}
+
+.firstA {
+    margin-right: 50px;
+}
+
+nav ul li a:hover {
+    color: white;
+    background-color: rgb(214,116,114);
+}
+
+nav ul li form input {
+    color: rgb(214,116,114);
+    background-color: white;
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    border: 0px;
+}
+
+nav ul li form input:hover {
+    color: white;
+    background-color: rgb(214,116,114);
+}
+
+select {
+    border: 0px;
+    font-size: 20px;
+    color: rgb(214,116,114);
+    background-color: white;
+    font-family: "Open Sans", sans-serif;
+}

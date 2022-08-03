@@ -1,0 +1,96 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    color: white;
+    border-collapse: collapse;
+}
+
+/*Section*/
+.sectionInline {
+    display: inline-block;
+}
+
+.leftSection {
+    float: left;
+    background: linear-gradient(135deg, hsla(245, 97%, 63%, 0.65), hsla(30, 96%, 62%, 0.65)), url("/images/peak.jpg") no-repeat center center / cover;
+    width: 49%;
+    height: 700px;
+    background-size: cover;
+    border-radius: 12px 0px 0px 12px;
+    text-align: center;
+}
+
+.leftSection h1 {
+    margin-top: 50px;
+}
+
+.rightSection {
+    width: 49%;
+    height: 690px;
+    border-radius: 0px 12px 12px 0px;
+    border: 5px solid #38082A;
+}
+
+/*Form*/
+.labelTop {
+    margin-top: 100px;
+    display: inline-block;
+}
+
+.labelForm {
+    color: rgb(218, 217, 220);
+    text-shadow: 2px 2px 2px #CE5937;
+    margin-right: 20%;
+}
+
+.inputForm {
+    margin-right: 20%;
+    margin-bottom: 25px;
+    color: rgb(118, 115, 115);
+    width: 80%;
+    height: 45px;
+    font-size: 17px;
+    border-bottom: 2px solid #38082A;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.btnForm {
+    margin-top: 25px;
+    width: 150px;
+    height: 70px;
+    color: white;
+    text-shadow: 2px 2px 2px #CE5937;
+    background-color: #38082A;
+    font-size: 25px;
+    border-radius: 12px 12px 12px 12px;
+    border: 5px solid #38082A;
+}
+
+.btnForm:hover {
+    background-color: pink;
+    text-shadow: 2px 2px 2px #CE5937;
+}
+
+::placeholder {
+    color: pink;
+    font-size: 17px;
+}
+
+.bg-danger {
+    background-color: red;
+}
+
+.mainDiv {
+    margin: auto;
+    height: 100%;
+    width: 60%;
+}
+
+
+
+
+
+
+

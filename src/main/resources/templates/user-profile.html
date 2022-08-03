@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www/thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Потребителски профил</title>
+    <link rel="stylesheet" href="/css/user-profile_style.css">
+    <script src="https://kit.fontawesome.com/a4f8f099d0.js" crossorigin="anonymous"></script>
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv">
+    <div th:object="${userProfile}">
+        <i class="fa-solid fa-user"></i>
+        <h2>Потребителско име</h2>
+        <h3 th:text="*{username}">потребителско име</h3>
+        <h2>Електронна поща</h2>
+        <h3 th:text="*{email}">електронна поща</h3>
+        <h2>Парола</h2>
+        <h3>цъкни бутона</h3>
+        <h2>Собствено име</h2>
+        <h3 th:text="*{firstName}">собствено име</h3>
+        <h2>Фамилия</h2>
+        <h3 th:text="*{lastName}">фамилия</h3>
+        <h2>Телефон</h2>
+        <h3 th:text="*{telephone}">телефон</h3>
+        <h2>Град</h2>
+        <h3 th:if="*{town != null}" th:text="*{town}">град</h3>
+        <h3 th:if="*{town == null}" th:text="*{'не е избран град'}">не е избран град</h3>
+        <a th:href="@{/user-edit}" title="Редакция"><i class="fa-solid fa-pen-to-square"></i></a>
+    </div>
+</div>
+</body>
+</html>

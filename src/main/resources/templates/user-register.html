@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Потребител - Регистрация</title>
+    <link rel="stylesheet" href="/css/user-register_style.css">
+    <script src="https://kit.fontawesome.com/a4f8f099d0.js" crossorigin="anonymous"></script>
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<form th:action="@{/register}"
+      th:method="post"
+      th:object="${userRegister}">
+  <section class="leftSection sectionInline">
+      <h1>Регистрация потребител</h1>
+  </section>
+  <section class="rightSection sectionInline">
+      <div class="mainDiv">
+          <span th:if="${usernameExist} == 1" class="bg-danger labelTop"
+                 th:text="'Потребителското име е заето'"></span>
+          <span th:if="${emailExist} == 1" class="bg-danger labelTop"
+                th:text="'Електронната поща е заета'"></span>
+          <span th:if="${passMatch} == 0" class="bg-danger labelTop"
+                 th:text="'Паролите не съвпадат'"></span>
+          <label for="username" class="labelForm labelTop">ПОТРЕБИТЕЛСКО ИМЕ</label>
+          <input
+              type="text"
+              id="username"
+              name="username"
+              th:field="*{username}"
+              class="inputForm"
+              placeholder="Потребителско име*">
+          <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="bg-danger"></small>
+          <label for="email" class="labelForm labelUsual">ЕЛЕКТРОННА ПОЩА</label>
+          <input
+              type="text"
+              id="email"
+              name="email"
+              th:field="*{email}"
+              class="inputForm"
+              placeholder="Електронна поща*">
+          <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="bg-danger"></small>
+          <label for="firstName" class="labelForm labelUsual">СОБСТВЕНО ИМЕ</label>
+          <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  th:field="*{firstName}"
+                  class="inputForm"
+                  placeholder="Собствено име*">
+          <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="bg-danger"></small>
+          <label for="lastName" class="labelForm labelUsual">ФАМИЛИЯ</label>
+          <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  th:field="*{lastName}"
+                  class="inputForm"
+                  placeholder="Фамилия*">
+          <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="bg-danger"></small>
+          <label for="telephone" class="labelForm labelUsual">ТЕЛЕФОН</label>
+          <input
+                  type="text"
+                  id="telephone"
+                  name="telephone"
+                  th:field="*{telephone}"
+                  class="inputForm"
+                  placeholder="+359888.../0888...*">
+          <small th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="bg-danger"></small>
+          <label for="password" class="labelForm labelUsual">ПАРОЛА</label>
+          <input
+              type="password"
+              id="password"
+              name="password"
+              th:field="*{password}"
+              class="inputForm"
+              placeholder="Парола*">
+          <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="bg-danger"></small>
+          <label for="passwordRepeat" class="labelForm labelUsual">ПОВТОРИ ПАРОЛА</label>
+          <input
+              type="password"
+              id="passwordRepeat"
+              name="passwordRepeat"
+              th:field="*{confirmPassword}"
+              class="inputForm"
+              placeholder="Повтори парола*">
+          <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="bg-danger"></small>
+          <label class="labelForm labelUsual">ГРАД</label>
+          <select class="inputForm"
+                  id="town"
+                  name="town"
+                  th:field="*{town}">
+              <option selected th:value="noTown">Избери град</option>
+              <option th:each="town : ${T(bg.softuni.pochivka.model.enums.TownEnum).values()}"
+                      th:value="${town}" th:text="${town.value}"></option>
+          </select>
+          <input type="submit" value="РЕГИСТРАЦИЯ" class="btnForm">
+      </div>
+  </section>
+</form>
+</body>
+</html>

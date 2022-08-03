@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/navbar_style.css">
+</head>
+<body>
+<div>
+    <nav>
+        <ul>
+            <li><a class="firstA" th:href="@{/home}">ТЪРСЕНЕ</a></li>
+            <li><a class="firstA" sec:authorize="isAuthenticated()"
+                   th:href="@{/hotel-add}">ДОБАВИ ХОТЕЛ</a></li>
+            <li><a class="firstA" sec:authorize="hasRole('ROLE_ADMINISTRATOR')"
+                   th:href="@{/pages/admins}">АДМИН</a></li>
+            <li><a class="firstA" sec:authorize="isAuthenticated()"
+                   th:href="@{/user-profile}">ПРОФИЛ</a></li>
+            <li><a class="firstA" sec:authorize="isAuthenticated()"
+                   th:href="@{/messages-input}">СЪОБЩЕНИЯ</a></li>
+            <li><a class="firstA" sec:authorize="!isAuthenticated()"
+                   th:href="@{/login}">ВХОД</a></li>
+            <li><a class="firstA" sec:authorize="!isAuthenticated()"
+                   th:href="@{/register}">РЕГИСТРАЦИЯ</a></li>
+            <li><form class="firstA" sec:authorize="isAuthenticated()"
+                      th:method="post" th:action="@{/logout}">
+                <input type="submit" value="ИЗХОД"></form></li>
+            <li>
+                <form th:method="get">
+                    ФОН
+                    <select id="theme" name="theme" onchange="this.form.submit()">
+                        <option value="themes.default" th:selected="${#themes.code('background') == 'default'}" th:text="'ПО ПОДРАЗБИРАНЕ'">ПО ПОДРАЗБИРАНЕ</option>
+                        <option value="themes.black" th:selected="${#themes.code('background') == 'black'}" th:text="'ЧЕРНО'">ЧЕРНО</option>
+                    </select>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

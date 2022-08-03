@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Администратор - Четене Съобщение</title>
+    <link rel="stylesheet" href="/css/messages_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv">
+    <div th:object="${message}">
+        <div th:text="*{content}"></div>
+        <div th:text="*{dateTime}"></div>
+    </div>
+
+</div>
+</body>
+</html>

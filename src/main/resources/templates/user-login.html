@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Потребител - Вход</title>
+    <link rel="stylesheet" href="/css/user-login_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<form th:method="post"
+      th:action="@{/login}">
+    <section class="leftSection sectionInline">
+        <h1>Вход потребител</h1>
+    </section>
+    <section class="rightSection sectionInline">
+        <div class="mainDiv">
+            <label for="username" class="labelTop labelForm">ПОТРЕБИТЕЛСКО ИМЕ</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                class="inputForm"
+                placeholder="Потребителско име">
+            <label for="password" class="labelForm">ПАРОЛА</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="inputForm"
+                placeholder="Парола">
+
+            <small th:if="${bad_credentials}" class="bg-danger">Невалидно потребителско име или парола!</small>
+            <input type="submit" value="ВХОД" class="btnForm">
+        </div>
+    </section>
+</form>
+</body>
+</html>

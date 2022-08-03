@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Съобщение - Изпрати</title>
+    <link rel="stylesheet" href="/css/messages_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv">
+    <h1>Съобщение</h1>
+    <div class="leftSection" th:include="fragments/messages">
+    </div>
+    <div class="rightSection">
+        <form th:action="@{/message-send}"
+              method="post"
+              th:object="${sendMessage}">
+            <h3>До</h3><input type="text" name="receiver" id="receiver" class="inputAside"
+                              th:field="*{receiverName}"
+                              th:value="*{receiverName}">
+            <textarea class="textareaClass" id="content" name="content" th:field="*{content}">
+
+            </textarea>
+            <div class="divButton">
+                <button type="submit" class="buttonAside">Изпрати</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

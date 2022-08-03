@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробности за хотел</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/hotel-detail_style.css">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a4f8f099d0.js" crossorigin="anonymous"></script>
+    <script src="/js/hotel-detail_javascript.js"></script>
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<div class="mainDiv" th:object="${hotelDetail}">
+    <div class="imageDiv">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="1000">
+                    <img th:src="${'/images/peak.jpg'}" class="d-block w-100 imgMain" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p>Благодаря Ви че сте на моя сайт</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item" data-bs-interval="2000"
+                     th:each="image : *{images}">
+                    <img th:src="${image}" class="d-block w-100 imgMain" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev colorPink" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+
+            </button>
+            <button class="carousel-control-next colorPink" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+
+            </button>
+        </div>
+    </div>
+    <div class="infoHotel">
+        <div class="titleHotel">
+            <h1 th:text="*{name} + ', ' + *{town.name.value}">Хотел Стара Плиска, Плиска
+                <i th:if="*{category.toString() == 'ONE_STAR'}" class="fa-solid fa-star"></i>
+                <i th:if="*{category.toString() == 'TWO_STAR'}" class="fa-solid fa-star"></i>
+                <i th:if="*{category.toString() == 'THREE_STAR'}" class="fa-solid fa-star"></i>
+                <i th:if="*{category.toString() == 'FOUR_STAR'}" class="fa-solid fa-star"></i>
+                <i th:if="*{category.toString() == 'FIVE_STAR'}" class="fa-solid fa-star"></i>
+            </h1>
+            <h2 th:text="*{accommodation.value}">Вид настаняване</h2>
+        </div>
+        <div class="contactHotel">
+            <h3 class="popup" onclick="contactFunction()">
+                Телефон<i class="fa-solid fa-phone" title="Телефон"></i>
+                <span class="popuptext" id="contactPopup"
+                      th:text="${'Телефон ' + hotelDetail.owner.telephone + ' Електронна поща ' + hotelDetail.owner.email}">Popup text...</span>
+            </h3>
+            <h3 class="popup" onclick="contactFunction()">
+                Email<i class="fa-solid fa-at"></i>
+            </h3>
+            <h3>
+                <a target="_blank" th:href="@{*{website}}">Уебсайт<i class="fa-solid fa-network-wired"></i></a>
+            </h3>
+            <h3>
+                <a th:href="@{/message-send/{username}(username=*{owner.username})}">Изпрати Съобщение<i class="fa-solid fa-message"></i></a>
+            </h3>
+        </div>
+        <div class="informationHotel">
+            <p th:text="*{information}">Комплекс Стара Плиска – уникален културно–исторически развлекателен комплекс. Намира се в град Плиска, столица на Първата българска държава в периода от 681 до 893г. На 10 минути от Мадарския конник и 5 минути от стария град и Базиликата.
+
+                Хотелската част разполага с 23 двойни стаи с допълнителен разтегателен фотьойл, 1 стая с три легла и 2 разтегателни фотьойла и 3 VIP стаи 2 разтегателни фотьойла.
+                Стаите са комфортно обзаведени и разполагат с кабелна телевизия и безжичен интернет и климатици.
+                Баните са модерно обзаведени и всяка разполага със сешоар и тоалетни принадлежности.
+            </p>
+        </div>
+        <div class="comfortsHotel">
+            <div th:each="comfort : *{comforts}">
+                <p th:text="${comfort.name.value}">
+                    Микровълнова печка
+                </p>
+            </div>
+        </div>
+        <div class="divPrice">
+            <h1>Цени</h1>
+            <table class="tablePrice">
+                <tr>
+                    <th>Стая</th>
+                    <th th:each="season : ${T(bg.softuni.pochivka.model.enums.Season).values()}"
+                        th:text="${season.value}">силен летен</th>
+                </tr>
+                <tr>
+                    <td>единична</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'STRONG_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'STRONG_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'STRONG_WINTER'  and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'STRONG_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'WEAK_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'WEAK_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'WEAK_WINTER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'WEAK_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'OTHER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'SINGLE' and room.season.toString() == 'OTHER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                </tr>
+                <tr>
+                    <td>двойна</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'STRONG_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'STRONG_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'STRONG_WINTER'  and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'STRONG_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'WEAK_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'WEAK_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'WEAK_WINTER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'WEAK_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'OTHER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'DOUBLE' and room.season.toString() == 'OTHER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                </tr>
+                <tr>
+                    <td>тройна</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'STRONG_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'STRONG_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'STRONG_WINTER'  and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'STRONG_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'WEAK_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'WEAK_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'WEAK_WINTER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'WEAK_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'OTHER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'TRIPLE' and room.season.toString() == 'OTHER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                </tr>
+                <tr>
+                    <td>четворна</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'STRONG_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'STRONG_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'STRONG_WINTER'  and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'STRONG_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'WEAK_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'WEAK_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'WEAK_WINTER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'WEAK_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'OTHER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'QUAD' and room.season.toString() == 'OTHER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                </tr>
+                <tr>
+                    <td>апартамент</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'STRONG_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'STRONG_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'STRONG_WINTER'  and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'STRONG_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'WEAK_SUMMER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'WEAK_SUMMER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'WEAK_WINTER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'WEAK_WINTER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'OTHER' and room.price != 0}"
+                        th:text="${room.price}">150</td>
+                    <td th:each="room : *{rooms}"
+                        th:if="${room.roomType.toString() == 'APARTMENT' and room.season.toString() == 'OTHER' and room.price == 0}"
+                        th:text="${'няма'}">150</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

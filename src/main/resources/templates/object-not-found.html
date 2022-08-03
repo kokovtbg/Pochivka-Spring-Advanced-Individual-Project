@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thyemeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Почивка - Грешка</title>
+    <link rel="stylesheet" href="/css/index_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<h1>Няма намерен<th:block th:if="${objectName == 'Съобщение'}" th:text="о">ppp</th:block>
+    <th:block th:text="${objectName}">обект</th:block>
+    <th:block th:if="${objectId != 0}"> с идентификационен номер
+        <th:block th:text="${objectId}">123</th:block>
+    </th:block>
+    <th:block th:if="${objectId == 0}"> с потребителско име
+        <th:block th:text="${objectUsername}"></th:block>
+    </th:block>
+</h1>
+</body>
+</html>

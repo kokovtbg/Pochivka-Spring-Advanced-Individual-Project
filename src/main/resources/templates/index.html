@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Почивка</title>
+    <link rel="stylesheet" href="/css/index_style.css">
+</head>
+<body th:style="'background-color: ' + ${#themes.code('background')}">
+<header th:replace="fragments/navbar">
+</header>
+<main>
+    <section class="firstSection">
+        <h1 class="headerTop">Добре дошли в сайта за почивка на Никола Анастасов</h1>
+        <h1
+                sec:authorize="isAuthenticated()"
+                th:text="${#authentication.principal.fullName}">
+        </h1>
+        <hr class="hrColorWhite">
+
+        <article>
+            <a th:href="@{/search-sea}">
+                <img src="/images/sea.jpg" class="img150">
+                <h3 class="colorWhite">НА МОРЕ</h3>
+            </a>
+        </article>
+        <article>
+            <a th:href="@{/search-mountain}">
+                <img src="/images/mountain.jpg" class="img150">
+                <h3 class="colorWhite">НА ПЛАНИНА</h3>
+            </a>
+        </article>
+        <article>
+            <a th:href="@{/search-ai}">
+                <img src="/images/allInclusive.jpg" class="img150">
+                <h3 class="colorWhite">ALL INCLUSIVE</h3>
+            </a>
+        </article>
+    </section>
+
+</main>
+<footer>
+    <p>Благодаря Ви че сте на моя сайт</p>
+</footer>
+</body>
+</html>
