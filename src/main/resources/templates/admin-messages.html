@@ -12,7 +12,7 @@
     <div th:each="m : ${messages}">
         <a th:href="@{/pages/admins/read/{id}(id=${m.id})}"
            th:text="${#strings.substring(m.content, 0, 60)} + '...'">Това е пробно съобщение</a>
-        <div>
+        <div th:text="${m.dateTime}">
             02/08/2022-16:02:30
         </div>
         <hr>
